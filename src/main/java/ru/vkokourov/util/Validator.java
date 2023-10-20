@@ -3,7 +3,12 @@ package ru.vkokourov.util;
 public class Validator {
 
     public static void operationValidate(String operationAndArgs) {
-        checkNullAndEmpty(operationAndArgs);
+        if (operationAndArgs == null) {
+            throw new RuntimeException("Input is null");
+        }
+        if (operationAndArgs.isEmpty()) {
+            throw new RuntimeException("Input is empty");
+        }
         if (operationAndArgs.split(" +").length <= 1) {
             throw new RuntimeException("Number of arguments is less than zero");
         }
@@ -12,19 +17,15 @@ public class Validator {
         }
     }
 
-    public static void modeValidate(String mode) {
-        checkNullAndEmpty(mode);
-        if (mode.split(" +").length != 2) {
-            throw new RuntimeException("Number of arguments is less than zero");
+    public static void modeValidate(String[] modes) {
+        if (modes == null) {
+            throw new RuntimeException("Input modes is null");
         }
-    }
-
-    private static void checkNullAndEmpty(String str) {
-        if (str == null) {
-            throw new RuntimeException("Input is null");
+        if (modes.length == 0) {
+            throw new RuntimeException("Input modes is empty");
         }
-        if (str.isEmpty()) {
-            throw new RuntimeException("Input is empty");
+        if (modes.length != 2) {
+            throw new RuntimeException("Incorrect number of modes");
         }
     }
 }

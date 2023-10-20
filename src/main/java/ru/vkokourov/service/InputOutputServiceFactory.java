@@ -17,15 +17,15 @@ public class InputOutputServiceFactory {
 
     public static final String FILE_FORMAT = ".txt";
 
-    private final String args;
+    private final String[] args;
 
-    public InputOutputServiceFactory(String args) {
+    public InputOutputServiceFactory(String[] args) {
         Validator.modeValidate(args);
         this.args = args;
     }
 
-    public InputService getInputService(String args) {
-        String inputMode = args.split(" +")[0];
+    public InputService getInputService() {
+        String inputMode = args[0];
         if (inputMode.equals("-")) {
             Scanner scanner = new Scanner(System.in);
             return new ConsoleInputService(scanner);
@@ -43,8 +43,8 @@ public class InputOutputServiceFactory {
         }
     }
 
-    public OutputService getOutputService(String args) {
-        String outputMode = args.split(" +")[1];
+    public OutputService getOutputService() {
+        String outputMode = args[1];
         if (outputMode.equals("-")) {
             return new ConsoleOutputService();
         } else if (outputMode.endsWith(FILE_FORMAT)) {
