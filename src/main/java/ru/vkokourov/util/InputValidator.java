@@ -13,7 +13,7 @@ public class InputValidator {
             throw new RuntimeException("Number of arguments is less than zero");
         }
         if (!input.matches("[A-Za-z]+( +([0-9]+))+")) {
-            throw new RuntimeException("Invalid inputs");
+            throw new RuntimeException("Invalid inputs: " + input);
         }
     }
 }
