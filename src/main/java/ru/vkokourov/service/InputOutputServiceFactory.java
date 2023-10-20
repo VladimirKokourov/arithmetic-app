@@ -1,6 +1,12 @@
 package ru.vkokourov.service;
 
-import ru.vkokourov.operation.OperationFactory;
+import ru.vkokourov.service.input.ConsoleInputService;
+import ru.vkokourov.service.input.FileInputService;
+import ru.vkokourov.service.input.InputService;
+import ru.vkokourov.service.output.ConsoleOutputService;
+import ru.vkokourov.service.output.FileOutputService;
+import ru.vkokourov.service.output.OutputService;
+import ru.vkokourov.util.Validator;
 
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
@@ -11,29 +17,47 @@ public class InputOutputServiceFactory {
 
     public static final String FILE_FORMAT = ".txt";
 
-    private final OperationFactory operationFactory;
+    private final String args;
 
-    public InputOutputServiceFactory(OperationFactory operationFactory) {
-        this.operationFactory = operationFactory;
+    public InputOutputServiceFactory(String args) {
+        Validator.modeValidate(args);
+        this.args = args;
     }
 
-    public InputOutputService getInputOutputService(String[] args) {
-        if (args.length == 1 && args[0].equals("--")) {
+    public InputService getInputService(String args) {
+        String inputMode = args.split(" +")[0];
+        if (inputMode.equals("-")) {
             Scanner scanner = new Scanner(System.in);
-            return new ConsoleInputOutputService(operationFactory, scanner);
-        } else if (args.length == 2 && args[0].endsWith(FILE_FORMAT) && args[1].endsWith(FILE_FORMAT)) {
+            return new ConsoleInputService(scanner);
+        } else if (inputMode.endsWith(FILE_FORMAT)) {
             Path input;
-            Path output;
             try {
-                input = Paths.get(args[0]);
-                output = Paths.get(args[1]);
+                input = Paths.get(inputMode);
             } catch (InvalidPathException e) {
                 throw new RuntimeException(e);
             }
 
-            return new FileInputOutputService(operationFactory, input, output);
+            return new FileInputService(input);
         } else {
-            throw new RuntimeException("Unknown command: " + args[0]);
+            throw new RuntimeException("Unknown command: " + inputMode);
+        }
+    }
+
+    public OutputService getOutputService(String args) {
+        String outputMode = args.split(" +")[1];
+        if (outputMode.equals("-")) {
+            return new ConsoleOutputService();
+        } else if (outputMode.endsWith(FILE_FORMAT)) {
+            Path output;
+            try {
+                output = Paths.get(outputMode);
+            } catch (InvalidPathException e) {
+                throw new RuntimeException(e);
+            }
+
+            return new FileOutputService(output);
+        } else {
+            throw new RuntimeException("Unknown command: " + outputMode);
         }
     }
 }

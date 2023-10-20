@@ -1,6 +1,6 @@
 package ru.vkokourov.operation;
 
-import ru.vkokourov.util.InputValidator;
+import ru.vkokourov.util.Validator;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -21,7 +21,7 @@ public class OperationFactory {
     }
 
     public Operation getOperation(String input) {
-        InputValidator.validate(input);
+        Validator.operationValidate(input);
 
         String[] arrInput = input.split(" ");
         String operationName = arrInput[0];
