@@ -4,9 +4,9 @@ import java.util.List;
 
 public abstract class Operation {
 
-    protected final List<Long> args;
+    protected List<Long> args;
 
-    public Operation(List<Long> args) {
+    public void setArgs(List<Long> args) {
         if (args == null) {
             throw new RuntimeException("List of args is null");
         }

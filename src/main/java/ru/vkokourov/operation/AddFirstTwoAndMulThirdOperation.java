@@ -2,14 +2,7 @@ package ru.vkokourov.operation;
 
 import java.util.List;
 
-public class AddFirstTwoAndMulThirdOperation extends ArithmeticOperation {
-
-    public AddFirstTwoAndMulThirdOperation(List<Long> args) {
-        super(args);
-        if (args.size() != 3) {
-            throw new RuntimeException("Invalid number of arguments");
-        }
-    }
+public class AddFirstTwoAndMulThirdOperation extends Operation {
 
     @Override
     public Long calcResult() {

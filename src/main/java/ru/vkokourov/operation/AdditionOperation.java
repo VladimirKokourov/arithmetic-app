@@ -2,11 +2,7 @@ package ru.vkokourov.operation;
 
 import java.util.List;
 
-public class AdditionOperation extends ArithmeticOperation {
-
-    public AdditionOperation(List<Long> args) {
-        super(args);
-    }
+public class AdditionOperation extends Operation {
 
     @Override
     public Long calcResult() {

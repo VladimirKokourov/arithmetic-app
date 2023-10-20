@@ -1,41 +1,40 @@
 package ru.vkokourov.operation;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class OperationFactory {
 
-    public static final String ADD = "add";
-    public static final String MUL = "mul";
-    public static final String MULADD = "muladd";
-    public static final String ADDMUL = "addmul";
+    private final Map<String, Operation> operationMap;
 
-    public static ArithmeticOperation getOperation(String input) {
+    public OperationFactory() {
+        operationMap = new HashMap<>();
+        operationMap.put("add", new AdditionOperation());
+        operationMap.put("mul", new MultiplicationOperation());
+        operationMap.put("muladd", new MulFirstTwoAndAddThirdOperation());
+        operationMap.put("addmul", new AddFirstTwoAndMulThirdOperation());
+    }
+
+    public Operation getOperation(String input) {
 //        InputValidatator.validate(input);
 
         String operationName = getOperationName(input);
         List<Long> args = getListOfArgs(input);
 
-        switch (operationName) {
-            case ADD:
-                return new AdditionOperation(args);
-            case MUL:
-                return new MultiplicationOperation(args);
-            case MULADD:
-                return new MulFirstTwoAndAddThirdOperation(args);
-            case ADDMUL:
-                return new AddFirstTwoAndMulThirdOperation(args);
-            default:
-                throw new RuntimeException();
+        Operation operation = operationMap.get(operationName);
+        if (operation == null) {
+            throw new RuntimeException("Operation " + operationName + " is not supported");
         }
+        operation.setArgs(args);
+
+        return operation;
     }
 
-    private static String getOperationName(String input) {
+    private String getOperationName(String input) {
         return input.split(" ")[0].toLowerCase();
     }
 
-    private static List<Long> getListOfArgs(String input) {
+    private List<Long> getListOfArgs(String input) {
         return Arrays.stream(input.split(" "))
                 .skip(1)
                 .map(Long::parseLong)
