@@ -22,8 +22,13 @@ public class OperationFactory {
 
     public Operation getOperation(String input) {
         InputValidator.validate(input);
-        String operationName = getOperationName(input);
-        List<Long> args = getListOfArgs(input);
+
+        String[] arrInput = input.split(" ");
+        String operationName = arrInput[0];
+        List<Long> args = Arrays.stream(arrInput)
+                .skip(1)
+                .map(Long::parseLong)
+                .collect(Collectors.toList());
 
         Operation operation = operationMap.get(operationName);
         if (operation == null) {
@@ -32,16 +37,5 @@ public class OperationFactory {
         operation.setArgs(args);
 
         return operation;
-    }
-
-    private String getOperationName(String input) {
-        return input.split(" ")[0].toLowerCase();
-    }
-
-    private List<Long> getListOfArgs(String input) {
-        return Arrays.stream(input.split(" "))
-                .skip(1)
-                .map(Long::parseLong)
-                .collect(Collectors.toList());
     }
 }
