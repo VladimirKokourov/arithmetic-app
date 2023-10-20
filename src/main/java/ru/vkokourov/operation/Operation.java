@@ -2,11 +2,11 @@ package ru.vkokourov.operation;
 
 import java.util.List;
 
-public abstract class ArithmeticOperation {
+public abstract class Operation {
 
     protected final List<Long> args;
 
-    public ArithmeticOperation(List<Long> args) {
+    public Operation(List<Long> args) {
         if (args == null) {
             throw new RuntimeException("List of args is null");
         }
