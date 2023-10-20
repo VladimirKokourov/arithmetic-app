@@ -10,6 +10,7 @@ public class AdditionOperation extends ArithmeticOperation {
 
     @Override
     public Long calcResult() {
-        return null;
+        return args.stream()
+                .reduce(0L, Long::sum);
     }
 }
