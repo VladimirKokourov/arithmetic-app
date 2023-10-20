@@ -10,6 +10,7 @@ public class MultiplicationOperation extends ArithmeticOperation {
 
     @Override
     public Long calcResult() {
-        return null;
+        return args.stream()
+                .reduce(1L, (a, b) -> a * b);
     }
 }
