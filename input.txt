@@ -1,0 +1,5 @@
+add 1 2 3
+mul 1 2 3
+muladd 1 2 3
+addmul 1 2 3
+add 3 2 1
