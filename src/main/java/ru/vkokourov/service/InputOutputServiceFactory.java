@@ -34,7 +34,7 @@ public class InputOutputServiceFactory {
             try {
                 input = Paths.get(inputMode);
             } catch (InvalidPathException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException("Invalid file path: " + inputMode);
             }
 
             return new FileInputService(input);
@@ -52,7 +52,7 @@ public class InputOutputServiceFactory {
             try {
                 output = Paths.get(outputMode);
             } catch (InvalidPathException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException("Invalid file path: " + outputMode);
             }
 
             return new FileOutputService(output);
