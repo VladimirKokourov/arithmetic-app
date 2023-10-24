@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 public class ConsoleInputService implements InputService {
 
-    private static final String ANSWER = "Ответ: ";
     private final Scanner scanner;
 
     public ConsoleInputService(Scanner scanner) {
