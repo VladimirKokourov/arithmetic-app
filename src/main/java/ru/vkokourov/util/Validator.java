@@ -2,7 +2,7 @@ package ru.vkokourov.util;
 
 public class Validator {
 
-    public static void operationValidate(String operationAndArgs) {
+    public void operationValidate(String operationAndArgs) {
         if (operationAndArgs == null) {
             throw new RuntimeException("Input is null");
         }
@@ -17,7 +17,7 @@ public class Validator {
         }
     }
 
-    public static void modeValidate(String[] modes) {
+    public void modeValidate(String[] modes) {
         if (modes == null) {
             throw new RuntimeException("Input modes is null");
         }

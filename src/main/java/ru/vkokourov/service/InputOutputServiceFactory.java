@@ -6,7 +6,6 @@ import ru.vkokourov.service.input.InputService;
 import ru.vkokourov.service.output.ConsoleOutputService;
 import ru.vkokourov.service.output.FileOutputService;
 import ru.vkokourov.service.output.OutputService;
-import ru.vkokourov.util.Validator;
 
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
@@ -20,7 +19,6 @@ public class InputOutputServiceFactory {
     private final String[] args;
 
     public InputOutputServiceFactory(String[] args) {
-        Validator.modeValidate(args);
         this.args = args;
     }
 
